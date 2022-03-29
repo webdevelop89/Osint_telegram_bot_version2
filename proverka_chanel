@@ -1,0 +1,15 @@
+
+//Проверка подписан ли на канал
+bot.on('text', (ctx)=> {
+ 
+       console.log(ctx.telegram.getChatMember('@efil_xam', ctx.chat.id )
+       .then(s => {
+           console.log('logs', s)
+       })
+       .catch(e => {
+           console.log('error', e)
+       })
+       
+       )
+      
+})

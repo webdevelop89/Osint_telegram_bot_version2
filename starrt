@@ -1,0 +1,70 @@
+bot.start((ctx) => {
+ 
+    //--проверка подписан ли на канал
+    ctx.telegram.getChatMember('@efil_xam', ctx.chat.id )
+    .then(s => {
+if(s.status === 'left') {
+    //-- если не подписан вывод сообщение с кнопками
+    ctx.telegram.sendMessage(ctx.chat.id, 'Вы не подписаны на наш канал, подпишитесь и нажмите кнопку для доступа к боту!',
+    {
+        reply_markup: {
+            inline_keyboard: [
+                //- первая кнопка редерект на канал
+               [{text:"Наш канал\n", callback_data: "LK"},
+               //-- вторая кнопка, повторная проверка подписки
+               {text:"Я, подписался!", callback_data: "KK"}]
+            
+           ]
+        }
+    });
+    } else {
+        ctx.reply("Приятного пользования ", getMainMenu())
+    }
+
+        console.log('logs', s.status)
+    })
+    .catch(e => {
+        console.log('error', e)
+    })
+    
+   
+}
+    )
+//-- реагирования на кнопки где старт 
+bot.action("LK", (ctx)=> {
+    ctx.replyWithHTML("https://t.me/efil_xam")
+})
+
+bot.action("KK", (ctx)=> {
+    {
+ 
+        //--проверка подписан ли на канал
+        ctx.telegram.getChatMember('@efil_xam', ctx.chat.id )
+        .then(s => {
+    if(s.status === 'left') {
+        //-- если не подписан вывод сообщение с кнопками
+        ctx.telegram.sendMessage(ctx.chat.id, 'Вы не подписаны на наш канал, подпишитесь и нажмите кнопку для доступа к боту!',
+        {
+            reply_markup: {
+                inline_keyboard: [
+                    //- первая кнопка редерект на канал
+                   [{text:"Наш канал\n", callback_data: "LK"},
+                   //-- вторая кнопка, повторная проверка подписки
+                   {text:"Я, подписался!", callback_data: "KK"}]
+                
+               ]
+            }
+        });
+        } else {
+            //-- тут вывод главного меню плюс функция для маркуп клавиатуры
+            ctx.reply("Приятного пользования", getMainMenu())
+        }
+    
+            console.log('logs', s.status)
+        })
+        .catch(e => {
+            console.log('error', e)
+        })
+        
+    }    
+})
